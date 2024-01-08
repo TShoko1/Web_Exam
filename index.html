@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Web exam</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="images/logo.png" type="image/logo">
+    <script src="https://kit.fontawesome.com/7ae22687d7.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <header id="header" class="header">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary shadow">
+            <div class="container-fluid">
+                <a class="navbar-brand d-flex" href="index.html">
+                    <img src="images/logo.png" alt="Logo" width="90" height="60"
+                        class="d-inline-block align-text-top user-select-none"> 
+                    <span class="ms-3 collapse navbar-collapse text-reset">Экскурсии по Москве</span>
+                </a>
+                <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active fs-5" aria-current="page" href="pages/lk.html">Личный кабинет</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="main-container px-5 py-4">
+            <div id="liveAlertPlaceholder"></div>
+            <!-- <button type="button" class="btn btn-primary" id="liveAlertBtn">Show live alert</button> -->
+            <div class="main-info d-flex justify-content-between">
+                <img src="images/msk.jpg" alt="main-info-img"
+                    class="main-info-img rounded-4 object-fit-cover mb-2 shadow-lg user-select-none">
+                <div class="main-info-text">
+                    Добро пожаловать в уникальные экскурсии по Москве! Исследуйте историю, 
+                    архитектуру, культуру и природные красоты города вместе с нами. От исторических 
+                    мест до современных достопримечательностей, наши опытные гиды сделают ваше путешествие 
+                    незабываемым. Погрузитесь в атмосферу города и откройте для себя его уникальные черты. 
+                </div>
+            </div>
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col fw-bold fs-1 text-center">
+                        Мы предоставляем
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col d-flex">
+                        <img src="images/cancel.svg" height="30" alt="" class="mt-1 user-select-none">
+                        <div class="benefit benefit-cancel ms-2">
+                            <div class="benefit-title fw-bold">Бесплатная отмена</div>
+                            <div class="benefit-descript text-secondary">Бесплатная отмена за 48 часов</div>
+                        </div>
+                    </div>
+                    <div class="col d-flex">
+                        <img src="images/visa.svg" height="30" alt="" class="mt-1 user-select-none">
+                        <div class="benefit benefit_visa ms-2">
+                            <div class="benefit-title fw-bold">Оплата онлайн</div>
+                            <div class="benefit-descript text-secondary">Мы гарантируем сохранность платежей и
+                                персональных данных
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col d-flex">
+                        <img src="images/flash.svg" height="30" alt="" class="mt-1 user-select-none">
+                        <div class="benefit benefit-flash ms-2">
+                            <div class="benefit-title fw-bold">Мгновенное подтверждение</div>
+                            <div class="benefit-descript text-secondary">После оплаты вы получите билет на электронную
+                                почту или
+                                телефон</div>
+                        </div>
+                    </div>
+                    <div class="col d-flex">
+                        <img src="images/heart.svg" height="30" alt="" class="mt-1 user-select-none">
+                        <div class="benefit benefit-heart ms-2">
+                            <div class="benefit-title fw-bold">Честные отзывы</div>
+                            <div class="benefit-descript text-secondary">10 000 отзывов от наших клиентов, которым вы
+                                можете
+                                доверять</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="walking-routes" class="walking-routes mt-5">
+                <div class="fs-3 fw-bold">
+                    Список пешеходных маршрутов
+                </div>
+                <div class="page-of-pages">
+                </div>
+                <div class="inputs my-3 d-flex flex-column flex-sm-row">
+                    <div class="input-group input-group-find">
+                        <input id="find-route-input" type="text" class="form-control" placeholder="Поиск по названию"
+                            aria-label="" aria-describedby="find-route">
+                        <button class="btn btn-outline-primary" type="button" id="find-route-btn">Найти</button>
+                    </div>
+                    <div class="input-group ms-5 w-25">
+                        <input type="text" class="form-control" aria-label="Text input with dropdown button"
+                            placeholder="Основной объект">
+                        <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false"></button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Separated link</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="walking-routes-table table table-hover table-bordered text-center">
+                        <thead>
+                            <tr class="table-active">
+                                <th scope="col">Название</th>
+                                <th scope="col">Описание</th>
+                                <th scope="col">Основные объекты</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody class="walking-routes-tbody">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <nav aria-label="Page navigation">
+                        <ul id="pagination-walking-routes" class="pagination pagination-walking-routes">
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div id="guides-container" class="guides-container mt-5 d-none">
+                <div class="fs-3 fw-bold">
+                    Доступные гиды по маршруту <span id="guides-route-name"
+                        class="guides-route-name text-decoration-underline">Название маршрута</span>
+                </div>
+                <div class="inputs my-3 d-flex flex-column flex-sm-row">
+                    <div class="input-group w-25">
+                        <input type="text" class="form-control language-input" aria-label="Text input with dropdown button"
+                            placeholder="Язык экскурсии">
+                        <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false"></button>
+                        <ul id="language-dropdown-menu" class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Separated link</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="expirience-container ms-0 ms-sm-5 mt-3 mt-sm-0 d-flex align-items-center">
+                        <div class="expirience-text">Опыт работы</div>
+                        <div class="expirience-from-to d-flex">
+                            <input id="guide-exp-from-input" type="text" class="form-control mx-3 exp-input" placeholder="От" aria-label="">
+                            <input id="guide-exp-to-input" type="text" class="form-control exp-input" placeholder="До" aria-label="">
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered text-center">
+                        <thead>
+                            <tr class="table-active">
+                                <th scope="col"></th>
+                                <th scope="col">ФИО</th>
+                                <th scope="col">Языки</th>
+                                <th scope="col">Опыт работы</th>
+                                <th scope="col">Стоимость услуг в час</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody class="guides-tbody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="application-formalization-modal" tabindex="-1" aria-labelledby="ModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg application-formalization-modal">
+                <div class="modal-content app-form-modal">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="ModalLabel">Оформление заявки</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-bio">ФИО гида: </div>
+                        <div class="modal-walking-route-name">Название маршрута: </div>
+                        <div class="modal-time-container py-2 d-flex flex-column flex-sm-row justify-content-between">
+                            <div class="modal-date-container">
+                                <div class="modal-date-title mb-1">Дата экскурсии:</div>
+                                <input type="date" name="date" class="form-control rounded px-2 modal-date-input"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                            <div class="modal-time-container">
+                                <div class="modal-time-title mb-1">Время начала:</div>
+                                <div class="input-group input-group-sm mb-3">
+                                    <input type="time" name="time" class="form-control rounded px-2 modal-time-input"
+                                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                        min="09:00:00" max="23:00:00">
+                                </div>
+                            </div>
+                            <div class="modal-duration-container">
+                                <div class="modal-duration mb-1">Длительность экскурсии:</div>
+                                <div class="input-group input-group-sm mb-3">
+                                    <input type="text" class="form-control modal-hour-input"
+                                        aria-label="Text input with dropdown button">
+                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false"
+                                        id="inputGroup-sizing-sm"></button>
+                                    <ul class="dropdown-menu dropdown-menu-end modal-hour-dropdown-menu">
+                                        <li><a class="dropdown-item modal-hour-btn modal-hour-1">1 час</a></li>
+                                        <li><a class="dropdown-item modal-hour-btn modal-hour-2">2 часа</a></li>
+                                        <li><a class="dropdown-item modal-hour-btn modal-hour-3">3 часа</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-people-count-container">
+                            <div class="modal-people-count">Количество человек: </div>
+                            <div class="input-group input-group-sm mb-3 w-25">
+                                <input type="number" class="form-control modal-people-count-input"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" min="1"
+                                    max="20" value="1">
+                            </div>
+                        </div>
+                        <div class="modal-additional-options-container">
+                            <div class="modal-additional-options-title fs-5">Дополнительные опции: </div>
+                            <div class="modal-options-container d-flex flex-column flex-sm-row mt-2 mb-3">
+                                <div class="modal-option me-5">
+                                    <div class="form-check">
+                                        <input class="form-check-input modal-fast-checkbox" type="checkbox" value=""
+                                            id="flexCheckDefault">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            Быстрый выезд гида (в течение часа)
+                                        </label>
+                                    </div>
+                                    <div class="modal-option-description">Увеличивает стоимость на 30% <span
+                                            class="modal-option-fast-extra"></span></div>
+                                </div>
+                                <div class="modal-option">
+                                    <div class="form-check">
+                                        <input class="form-check-input  modal-transfer-checkbox" type="checkbox"
+                                            value="" id="flexCheckDefault">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            Трансфер до ближайших станций метро после экскурсии
+                                        </label>
+                                    </div>
+                                    <div class="modal-option-description">Увеличивает стоимость на
+                                        25% в выходные дни и на 30% в будние <span
+                                            class="modal-option-transfer-extra"></span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-final-value">Итоговая стоимость: 0₽</div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+                        <button type="button" class="btn btn-primary modal-btn-send"
+                            data-bs-dismiss="modal">Отправить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 mt-auto shadow-lg">
+        <div class="col-md-4 d-flex align-items-center px-5">
+            <span class="text-muted">© 2023 Baratelia Timur</span>
+        </div>
+    </footer>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

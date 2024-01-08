@@ -1,0 +1,55 @@
+::selection
+    background: #ff0022d2
+    color: #EEE
+    text-shadow: none
+
+::-moz-selection
+    background: #ff0022d2
+    color: #EEE
+    text-shadow: none
+
+
+// Bootstrap variables
+.custom-tooltip
+    --bs-tooltip-bg: #EEE
+    --bs-tooltip-color: #ff0022
+
+.tooltip-inner 
+    max-width: 20vw
+    /* If max-width does not work, try using width instead */
+    width: 20vw
+
+#application-delete-modal
+    .modal-header, .modal-footer
+        border: none
+
+
+// sass
+html
+    font: 1rem "Montserrat"
+
+.main-container
+    .main-info
+        @media screen and (max-width: 768px)
+            flex-direction: column
+        @media screen and (min-width: 768px)
+            flex-direction: row
+        .main-info-img, .main-info-text
+            @media screen and (max-width: 768px)
+                width: 100%
+            @media screen and (min-width: 768px)
+                width: 45%
+                min-width: 250px
+        .main-info-text
+            font: 1.5rem "Montserrat"
+
+.exp-input
+    width: 15%
+    min-width: 60px
+
+.input-group-find
+    @media (min-width: 576px)
+        width: 25%
+        min-width: 200px
+    @media (max-width: 576px)
+        width: 100%
