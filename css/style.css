@@ -1,72 +1,76 @@
 ::selection {
-    background: rgba(255, 0, 34, 0.8235294118);
-    color: #EEE;
-    text-shadow: none;
+  background: #097d2e;
+  color: #EEE;
+  text-shadow: none;
+}
+
+::-moz-selection {
+  background: #097d2e;
+  color: #EEE;
+  text-shadow: none;
+}
+
+.custom-tooltip {
+  --bs-tooltip-bg: #EEE;
+  --bs-tooltip-color: #097d2e;
+}
+
+.tooltip-inner {
+  max-width: 20vw;
+  /* If max-width does not work, try using width instead */
+  width: 20vw;
+}
+
+#application-delete-modal .modal-header, #application-delete-modal .modal-footer {
+  border: none;
+}
+
+html {
+  font: 1rem "Montserrat";
+}
+
+body {
+  color: #a5490ba7;
+}
+
+@media screen and (max-width: 768px) {
+  .main-container .main-info {
+    flex-direction: column;
   }
-  
-  ::-moz-selection {
-    background: rgba(255, 0, 34, 0.8235294118);
-    color: #EEE;
-    text-shadow: none;
+}
+@media screen and (min-width: 768px) {
+  .main-container .main-info {
+    flex-direction: row;
   }
-  
-  .custom-tooltip {
-    --bs-tooltip-bg: #EEE;
-    --bs-tooltip-color: #ff0022;
+}
+@media screen and (max-width: 768px) {
+  .main-container .main-info .main-info-img, .main-container .main-info .main-info-text {
+    width: 100%;
   }
-  
-  .tooltip-inner {
-    max-width: 20vw;
-    /* If max-width does not work, try using width instead */
-    width: 20vw;
+}
+@media screen and (min-width: 768px) {
+  .main-container .main-info .main-info-img, .main-container .main-info .main-info-text {
+    width: 45%;
+    min-width: 250px;
   }
-  
-  #application-delete-modal .modal-header, #application-delete-modal .modal-footer {
-    border: none;
+}
+.main-container .main-info .main-info-text {
+  font: 1.5rem "Montserrat";
+}
+
+.exp-input {
+  width: 15%;
+  min-width: 60px;
+}
+
+@media (min-width: 576px) {
+  .input-group-find {
+    width: 25%;
+    min-width: 200px;
   }
-  
-  html {
-    font: 1rem "Montserrat";
+}
+@media (max-width: 576px) {
+  .input-group-find {
+    width: 100%;
   }
-  
-  @media screen and (max-width: 768px) {
-    .main-container .main-info {
-      flex-direction: column;
-    }
-  }
-  @media screen and (min-width: 768px) {
-    .main-container .main-info {
-      flex-direction: row;
-    }
-  }
-  @media screen and (max-width: 768px) {
-    .main-container .main-info .main-info-img, .main-container .main-info .main-info-text {
-      width: 100%;
-    }
-  }
-  @media screen and (min-width: 768px) {
-    .main-container .main-info .main-info-img, .main-container .main-info .main-info-text {
-      width: 45%;
-      min-width: 250px;
-    }
-  }
-  .main-container .main-info .main-info-text {
-    font: 1.5rem "Montserrat";
-  }
-  
-  .exp-input {
-    width: 15%;
-    min-width: 60px;
-  }
-  
-  @media (min-width: 576px) {
-    .input-group-find {
-      width: 25%;
-      min-width: 200px;
-    }
-  }
-  @media (max-width: 576px) {
-    .input-group-find {
-      width: 100%;
-    }
-  }/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=style.css.map */
