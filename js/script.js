@@ -377,18 +377,28 @@ function updatePrice() {
     const transferCheckbox = document.querySelector('.modal-transfer-checkbox');
     const fastExtra = document.querySelector('.modal-option-fast-extra');
     const transferExtra = document.querySelector('.modal-option-transfer-extra');
-    const fPrice = Math.round((price.guideServiceCost * price.hoursNumber * price.isThisDayOff + price.isItMorning + price.isItEvening + price.priceNumberOfVisitors) * price.fastCoef * price.transferCoef);
+    
+    const базоваяСтоимость = price.guideServiceCost * price.hoursNumber * price.isThisDayOff + price.isItMorning + price.isItEvening + price.priceNumberOfVisitors;
+    
+    const fPrice = Math.round(базоваяСтоимость * price.fastCoef);
+
     if (fastCheckbox.checked)
-        fastExtra.innerHTML = `(${Math.round((price.guideServiceCost * price.hoursNumber * price.isThisDayOff + price.isItMorning + price.isItEvening + price.priceNumberOfVisitors) * (price.fastCoef - 1))}₽)`;
+        fastExtra.innerHTML = `(${Math.round(базоваяСтоимость * (price.fastCoef - 1))}₽)`;
     else
         fastExtra.innerHTML = "";
-    if (transferCheckbox.checked)
-        transferExtra.innerHTML = `(${Math.round((price.guideServiceCost * price.hoursNumber * price.isThisDayOff + price.isItMorning + price.isItEvening + price.priceNumberOfVisitors) * (price.transferCoef - 1))}₽)`;
-    else
+
+    if (transferCheckbox.checked) {
+        const новаяСтоимость = базоваяСтоимость + 500;
+        transferExtra.innerHTML = `(+500₽)`;
+        finalPrice.innerHTML = 'Итоговая стоимость: ' + String(fPrice + 500) + "₽";
+    } else {
         transferExtra.innerHTML = "";
-    finalPrice.innerHTML = 'Итоговая стоимость: ' + String(fPrice) + "₽";
+        finalPrice.innerHTML = 'Итоговая стоимость: ' + String(fPrice) + "₽";
+    }
+
     return fPrice;
 }
+
 //функция проверяет корректность введенных пользователем данных, таких как длительность экскурсии, дата, время, количество человек и другие параметры.
 function dataCorrectnessCheck() { 
     let flag = true;
