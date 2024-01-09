@@ -26,12 +26,34 @@
 }
 
 html {
-  font: 1rem "Montserrat";
+  font: 0.9rem "Times New Roman";
 }
 
 body {
-  color: #a5490ba7;
+  color: #773204e4;
 }
+
+.page-link {
+  color: #097d2e;
+}
+
+.page-link:hover {
+  color: #ffffff; 
+  background-color: #097d2e;
+}
+
+.btn-guides.btn-outline-primary {
+  color: rgb(219, 11, 156);
+  background-color: rgb(255, 255, 255); 
+  border-color: rgb(219, 11, 156); 
+}
+
+.btn-guides.btn-outline-primary:hover {
+  color: rgb(255, 255, 255);
+  background-color: rgb(219, 11, 156); 
+  border-color: rgb(219, 11, 156); 
+}
+
 
 @media screen and (max-width: 768px) {
   .main-container .main-info {
@@ -55,7 +77,7 @@ body {
   }
 }
 .main-container .main-info .main-info-text {
-  font: 1.5rem "Montserrat";
+  font: 1.5rem "Times New Roman";
 }
 
 .exp-input {

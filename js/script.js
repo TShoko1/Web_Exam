@@ -3,7 +3,9 @@ let application = {};
 let price = {};
 let sendData = new FormData();
 const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+// Функция для добавления всплывающего уведомления
 const appendAlert = (message, type) => {
+// Создание элемента всплывающего уведомления и добавление его в документ
     const wrapper = document.createElement('div');
     wrapper.innerHTML = [
         `<div class="alert alert-${type} alert-dismissible" role="alert">`,
@@ -13,6 +15,7 @@ const appendAlert = (message, type) => {
     ].join('');
     alertPlaceholder === null || alertPlaceholder === void 0 ? void 0 : alertPlaceholder.append(wrapper);
 };
+// Обработчик события для кнопки, вызывающей всплывающее уведомление
 const alertTrigger = document.getElementById('liveAlertBtn');
 if (alertTrigger) {
     alertTrigger.addEventListener('click', () => {
@@ -20,9 +23,11 @@ if (alertTrigger) {
     });
 }
 const api_key = "de6e3ec6-5759-48ab-a19d-d7c3f92d1e7a";
+// Переменные для маршрутов и пагинации
 let walkingRoutes;
 let currentPage = 1;
 let maxPage = 1;
+// Функция для обработки маршрутов
 function walkingRoutesHandler() {
     let url = new URL("http://exam-2023-1-api.std-900.ist.mospolytech.ru/api/routes");
     url.searchParams.append('api_key', api_key);
@@ -37,12 +42,15 @@ function walkingRoutesHandler() {
     };
     xhr.send();
 }
+// Функция для установки атрибутов для всплывающих подсказок
 function setAttributesForTooltip(cell, tooltipText) {
+    // Отрисовка списка маршрутов в таблице
     cell.setAttribute("data-bs-toggle", "tooltip");
     cell.setAttribute("data-bs-placement", "top");
     cell.setAttribute("data-bs-custom-class", "custom-tooltip");
     cell.setAttribute("data-bs-title", tooltipText);
 }
+// Функция для отрисовки списка маршрутов
 function renderWalkingRoutes(walkingRoutes, fromTo = [0, 9]) {
     const maxLetters = Math.floor(window.screen.width / 10);
     const walkingRoutesTbody = document.querySelector('.walking-routes-tbody');
@@ -70,6 +78,7 @@ function renderWalkingRoutes(walkingRoutes, fromTo = [0, 9]) {
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
 }
+// Функция для отрисовки пагинации
 function renderPagination(fromTo = [1, 3]) {
     let pageOfPages = document.getElementsByClassName("page-of-pages")[0];
     pageOfPages.innerHTML = `Страница ${currentPage} из ${maxPage}`;
@@ -90,6 +99,7 @@ function renderPagination(fromTo = [1, 3]) {
     next.innerHTML = '<a class="page-link page-next" href="#walking-routes">Следующая</a>';
     pagination.appendChild(next);
 }
+// Функция для добавления языков в выпадающее меню
 function addLanguages() {
     let lng = [];
     const languageDropdownMenu = document.querySelector('#language-dropdown-menu');
@@ -109,6 +119,7 @@ function addLanguages() {
     }
 }
 let guides;
+// Функция для отрисовки гидов
 function renderGuides(language = "", expFrom = 0, expTo = 999) {
     const guidesTbody = document.querySelector('.guides-tbody');
     guidesTbody.innerHTML = "";
@@ -159,6 +170,7 @@ function renderGuides(language = "", expFrom = 0, expTo = 999) {
         }
     }
 }
+// Обработчик события для кнопок пагинации
 function pageBtnHandler(event) {
     const target = event.target;
     const page = target.classList[1].slice(5);
@@ -199,6 +211,7 @@ function pageBtnHandler(event) {
         renderPagination([currentPage - 1, currentPage + 1]);
     renderWalkingRoutes(walkingRoutes, fromTo);
 }
+// Обработчик события для поиска
 function searchHandler() {
     const findRouteInput = document.getElementById('find-route-input');
     let wr = [];
@@ -209,12 +222,14 @@ function searchHandler() {
     }
     renderWalkingRoutes(wr);
 }
+// Обработчик события для клавиши "Enter"
 function handleEnterKey(event) {
     if (event.key === "Enter") {
         searchHandler();
     }
 }
 let routeId;
+// Обработчик события для кнопки выбора маршрута
 function walkingRouteBtnHandler(event) {
     const guideExpFromInput = document.querySelector('#guide-exp-from-input');
     const guideExpToInput = document.querySelector('#guide-exp-to-input');
@@ -242,6 +257,7 @@ function walkingRouteBtnHandler(event) {
     xhr.send();
 }
 let GuideId;
+// Обработчик события для кнопки выбора гида
 function GuideBtnHandler(event) {
     const target = event.target;
     GuideId = Number(target.classList[0].slice(3));
@@ -272,7 +288,8 @@ function GuideBtnHandler(event) {
     transfer.checked = false;
     applicationFormalizationHandler();
 }
-function applicationFormalizationHandler() {  //ф-ция для обработки заявки
+//ф-ция для обработки заявки
+function applicationFormalizationHandler() {  
     const modalBio = document.querySelector('.modal-bio');
     modalBio.innerHTML = 'ФИО гида: ' + application.giude.name;
     const modalWalkingRouteName = document.querySelector('.modal-walking-route-name');
@@ -285,4 +302,213 @@ function modalHourBtnHandler(event) {
     input.value = "";
     input.value = String(countHours);
 }
-
+//функция обрабатывает данные из полей ввода в модальном окне.
+function appFormModalHandler() { 
+    const hoursNumber = document.querySelector('.modal-hour-input');
+    const date = document.querySelector('.modal-date-input');
+    const time = document.querySelector('.modal-time-input');
+    const peopleCount = document.querySelector('.modal-people-count-input');
+    const fast = document.querySelector('.modal-fast-checkbox');
+    const transfer = document.querySelector('.modal-transfer-checkbox');
+    let isThisDayOff = 1;
+    let isItMorning = 0;
+    let isItEvening = 0;
+    let fastCoef = 1;
+    let transferCoef = 1;
+    let priceNumberOfVisitors = 0;
+    if (new Date(date.value).getDay() in [0, 6] || String(new Date(date.value)) in
+        ['2024-01-01', '2024-01-02', '2024-01-03', '2024-01-04', '2024-01-05', '2024-01-08', '2024-02-23', '2024-03-08', '2024-04-29',
+            '2024-04-30', '2024-05-01', '2024-05-09', '2024-05-10', '2024-06-12', '2024-11-04', '2024-12-30', '2024-12-31'])
+        isThisDayOff = 1.5;
+    if (time.value >= '09:00' && time.value <= '12:00')
+        isItMorning = 400;
+    if (time.value >= '20:00' && time.value <= '23:00')
+        isItEvening = 1000;
+    if (Number(peopleCount.value) >= 1 && Number(peopleCount.value) < 5)
+        priceNumberOfVisitors = 0;
+    else if (Number(peopleCount.value) >= 5 && Number(peopleCount.value) < 10)
+        priceNumberOfVisitors = 1000;
+    else
+        priceNumberOfVisitors = 1500;
+    if (fast.checked)
+        fastCoef = 1.3;
+    if (transfer.checked) {
+        if ([1, 2, 3, 4, 5].includes(new Date(date.value).getDay())) {
+            transferCoef = 1.3;
+        }
+        else {
+            transferCoef = 1.25;
+        }
+    }
+    price = {
+        guideServiceCost: application.giude.pricePerHour,
+        hoursNumber: Number(hoursNumber.value),
+        isThisDayOff: isThisDayOff,
+        isItMorning: isItMorning,
+        isItEvening: isItEvening,
+        priceNumberOfVisitors: priceNumberOfVisitors,
+        fastCoef: fastCoef,
+        transferCoef: transferCoef,
+    };
+    updatePrice();
+}
+//функция вызывается при нажатии кнопки отправки заявки.
+function modalBtnSendHandler() { 
+    if (!dataCorrectnessCheck())
+        return;
+    console.log(sendData);
+    let url = new URL("http://exam-2023-1-api.std-900.ist.mospolytech.ru/api/orders");
+    url.searchParams.append('api_key', api_key);
+    let xhr = new XMLHttpRequest();
+    xhr.responseType = 'json';
+    xhr.open('POST', url);
+    xhr.send(sendData);
+    xhr.onload = () => {
+        if (xhr.readyState == 4 && xhr.status == 200)
+            appendAlert(`Заявка №${xhr.response.id} успешно создана`, 'success');
+        else
+            appendAlert(`Ошибка ${xhr.response.error}`, 'danger');
+    };
+}
+//функция обновляет отображение итоговой стоимости экскурсии на веб-странице.
+function updatePrice() {
+    const finalPrice = document.querySelector('.modal-final-value');
+    const fastCheckbox = document.querySelector('.modal-fast-checkbox');
+    const transferCheckbox = document.querySelector('.modal-transfer-checkbox');
+    const fastExtra = document.querySelector('.modal-option-fast-extra');
+    const transferExtra = document.querySelector('.modal-option-transfer-extra');
+    const fPrice = Math.round((price.guideServiceCost * price.hoursNumber * price.isThisDayOff + price.isItMorning + price.isItEvening + price.priceNumberOfVisitors) * price.fastCoef * price.transferCoef);
+    if (fastCheckbox.checked)
+        fastExtra.innerHTML = `(${Math.round((price.guideServiceCost * price.hoursNumber * price.isThisDayOff + price.isItMorning + price.isItEvening + price.priceNumberOfVisitors) * (price.fastCoef - 1))}₽)`;
+    else
+        fastExtra.innerHTML = "";
+    if (transferCheckbox.checked)
+        transferExtra.innerHTML = `(${Math.round((price.guideServiceCost * price.hoursNumber * price.isThisDayOff + price.isItMorning + price.isItEvening + price.priceNumberOfVisitors) * (price.transferCoef - 1))}₽)`;
+    else
+        transferExtra.innerHTML = "";
+    finalPrice.innerHTML = 'Итоговая стоимость: ' + String(fPrice) + "₽";
+    return fPrice;
+}
+//функция проверяет корректность введенных пользователем данных, таких как длительность экскурсии, дата, время, количество человек и другие параметры.
+function dataCorrectnessCheck() { 
+    let flag = true;
+    const hoursNumber = document.querySelector('.modal-hour-input');
+    const date = document.querySelector('.modal-date-input');
+    const time = document.querySelector('.modal-time-input');
+    const peopleCount = document.querySelector('.modal-people-count-input');
+    const fast = document.querySelector('.modal-fast-checkbox');
+    const transfer = document.querySelector('.modal-transfer-checkbox');
+    if (!Number(hoursNumber.value)) {
+        appendAlert(`Выбрано недопустимое значение длительности экскурсии! Доступные значения от 1 до 3 часов. Вы не выбрали длительность экскурсии.`, 'danger');
+        flag = false;
+    }
+    else if (Number(hoursNumber.value) < 1 || Number(hoursNumber.value) > 3) {
+        appendAlert(`Выбрано недопустимое значение длительности экскурсии! Доступные значения от 1 до 3 часов. Вы выбрали ${hoursNumber.value}.`, 'danger');
+        flag = false;
+    }
+    const selectedDate = new Date(date.value);
+    const newSelectedDate = String(selectedDate.getDate()).padStart(2, '0') + "." + String(selectedDate.getMonth() + 1).padStart(2, '0') + "." + selectedDate.getFullYear();
+    const today = new Date();
+    const newToday = String(today.getDate() + 1).padStart(2, '0') + '.' + String(today.getMonth() + 1).padStart(2, '0') + '.' + today.getFullYear();
+    const oldToday = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate() + 1).padStart(2, '0');
+    if (newSelectedDate == "NaN.NaN.NaN") {
+        appendAlert(`Выбрана недопустимая дата экскурсии! Доступны даты с ${newToday} по 31.12.2024. Вы не выбрали дату.`, 'danger');
+        flag = false;
+    }
+    else if (date.value < oldToday || date.value > "2024-12-31") {
+        appendAlert(`Выбрана недопустимая дата экскурсии! Доступны даты с ${newToday} по 31.12.2024. Вы выбрали ${newSelectedDate}.`, 'danger');
+        flag = false;
+    }
+    if (!time.value) {
+        appendAlert(`Выбрано недопустимое время экскурсии! Доступное время с 09:00 до 23:00. Вы не выбрали время.`, 'danger');
+        flag = false;
+    }
+    else if (time.value < "09:00" || time.value > "23:00") {
+        appendAlert(`Выбрано недопустимое время экскурсии! Доступное время с 09:00 до 23:00. Вы выбрали ${time.value}.`, 'danger');
+        flag = false;
+    }
+    if (!Number(peopleCount.value)) {
+        appendAlert(`Выбрано недопустимое количество человек для экскурсии! Доступное количество от 1 до 20 человек. Вы не выбрали количество человек.`, 'danger');
+        flag = false;
+    }
+    else if (Number(peopleCount.value) < 1 || Number(peopleCount.value) > 20) {
+        appendAlert(`Выбрано недопустимое количество человек для экскурсии! Доступное количество от 1 до 20 человек. Вы выбрали ${peopleCount.value}.`, 'danger');
+        flag = false;
+    }
+    sendData.append('guide_id', String(application.giude.id));
+    sendData.append('route_id', String(application.walkingRoute.id));
+    sendData.append('date', String(date.value));
+    sendData.append('time', String(time.value));
+    sendData.append('duration', String(hoursNumber.value));
+    sendData.append('persons', String(peopleCount.value));
+    sendData.append('price', String(updatePrice()));
+    sendData.append('optionFirst', fast.checked ? '1' : '0');
+    sendData.append('optionSecond', transfer.checked ? '1' : '0');
+    return flag;
+}
+function languageBtnHandler(event) {
+    const target = event.target;
+    const input = document.querySelector('.language-input');
+    const guideExpFromInput = document.querySelector('#guide-exp-from-input');
+    const guideExpToInput = document.querySelector('#guide-exp-to-input');
+    let language = target.classList[target.classList.length - 1].slice(9);
+    input.value = "";
+    input.value = String(language);
+    if (Number(guideExpFromInput.value) >= 0 && Number(guideExpToInput.value) >= 0) {
+        let from = Number(guideExpFromInput.value) ? Number(guideExpFromInput.value) : 0;
+        let to = Number(guideExpToInput.value) ? Number(guideExpToInput.value) : 999;
+        renderGuides(language.toLowerCase(), from, to);
+    }
+}
+function guideInputHandler(event) {
+    const guideExpFromInput = document.querySelector('#guide-exp-from-input');
+    const guideExpToInput = document.querySelector('#guide-exp-to-input');
+    const language = document.querySelector('.language-input');
+    if (Number(guideExpFromInput.value) >= 0 && Number(guideExpToInput.value) >= 0) {
+        let from = Number(guideExpFromInput.value) ? Number(guideExpFromInput.value) : 0;
+        let to = Number(guideExpToInput.value) ? Number(guideExpToInput.value) : 999;
+        renderGuides(language.value.toLowerCase(), from, to);
+    }
+}
+window.onload = function () {
+    var _a;
+    walkingRoutesHandler();
+    const paginationElement = document.querySelector('.pagination');
+    if (paginationElement)
+        paginationElement.onclick = pageBtnHandler;
+    const findRouteBtn = document.getElementById('find-route-btn');
+    findRouteBtn === null || findRouteBtn === void 0 ? void 0 : findRouteBtn.addEventListener("click", searchHandler);
+    const findRouteInput = document.getElementById('find-route-input');
+    findRouteInput === null || findRouteInput === void 0 ? void 0 : findRouteInput.addEventListener("input", searchHandler);
+    findRouteBtn === null || findRouteBtn === void 0 ? void 0 : findRouteBtn.addEventListener("keydown", handleEnterKey);
+    const walkingRouteBtn = document.querySelector('.walking-routes-tbody');
+    if (walkingRouteBtn)
+        walkingRouteBtn.onclick = walkingRouteBtnHandler;
+    const GuideBtn = document.querySelector('.guides-tbody');
+    if (GuideBtn)
+        GuideBtn.onclick = GuideBtnHandler;
+    const modalHourBtn = document.querySelector('.modal-hour-dropdown-menu');
+    if (modalHourBtn)
+        modalHourBtn.onclick = modalHourBtnHandler;
+    const appFormModal = document.querySelector('#application-formalization-modal');
+    if (appFormModal)
+        appFormModal.onclick = appFormModalHandler;
+    const modalBtnSend = document.querySelector('.modal-btn-send');
+    if (modalBtnSend)
+        modalBtnSend.onclick = modalBtnSendHandler;
+    const languageBtn = document.querySelector('#language-dropdown-menu');
+    if (languageBtn)
+        languageBtn.onclick = languageBtnHandler;
+    const guideExpFromInput = document.querySelector('#guide-exp-from-input');
+    if (guideExpFromInput)
+        guideExpFromInput.oninput = guideInputHandler;
+    const guideExpToInput = document.querySelector('#guide-exp-to-input');
+    if (guideExpToInput)
+        guideExpToInput.oninput = guideInputHandler;
+    const languageInput = document.querySelector('.language-input');
+    if (languageInput)
+        languageInput.oninput = guideInputHandler;
+    (_a = document.getElementById('application-formalization-modal')) === null || _a === void 0 ? void 0 : _a.addEventListener('hidden.bs.modal', function () {
+        window.location.hash = '#header';
+    });
+};
